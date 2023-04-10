@@ -56,6 +56,7 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.18.0
 	github.com/aws/aws-sdk-go-v2/config v1.18.23
 	github.com/aws/aws-sdk-go-v2/service/secretsmanager v1.19.7
+	github.com/gin-gonic/gin v1.9.0
 	github.com/go-git/go-git/v5 v5.6.1
 	github.com/go-logr/logr v1.2.4
 	github.com/google/uuid v1.3.0
@@ -64,6 +65,7 @@ require (
 	github.com/onsi/gomega v1.27.6
 	github.com/otiai10/copy v1.11.0
 	github.com/sergi/go-diff v1.2.0
+	github.com/tkrajina/typescriptify-golang-structs v0.1.10
 	go.mozilla.org/sops/v3 v3.7.4-0.20220901181616-9124783930b1
 	sigs.k8s.io/controller-runtime v0.14.5
 	sigs.k8s.io/kustomize/api v0.13.2
@@ -108,9 +110,11 @@ require (
 	github.com/aws/smithy-go v1.13.5 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/blang/semver v3.5.1+incompatible // indirect
+	github.com/bytedance/sonic v1.8.0 // indirect
 	github.com/cenkalti/backoff/v3 v3.2.2 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chai2010/gettext-go v1.0.2 // indirect
+	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/cloudflare/circl v1.3.0 // indirect
 	github.com/containerd/containerd v1.7.0 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.14.3 // indirect
@@ -133,6 +137,7 @@ require (
 	github.com/fluxcd/pkg/apis/kustomize v1.0.0 // indirect
 	github.com/fluxcd/pkg/sourceignore v0.3.3 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
+	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-errors/errors v1.4.2 // indirect
 	github.com/go-git/gcfg v1.5.0 // indirect
 	github.com/go-git/go-billy/v5 v5.4.1 // indirect
@@ -143,6 +148,7 @@ require (
 	github.com/go-openapi/swag v0.22.3 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
+	github.com/goccy/go-json v0.10.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
@@ -173,6 +179,7 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.16.5 // indirect
+	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	github.com/kylelemons/godebug v1.1.0 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
@@ -215,6 +222,9 @@ require (
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/subosito/gotenv v1.4.2 // indirect
+	github.com/tkrajina/go-reflector v0.5.5 // indirect
+	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
+	github.com/ugorji/go/codec v1.2.11 // indirect
 	github.com/urfave/cli v1.22.12 // indirect
 	github.com/vbatts/tar-split v0.11.3 // indirect
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
@@ -228,6 +238,7 @@ require (
 	go.opentelemetry.io/otel/trace v1.14.0 // indirect
 	go.starlark.net v0.0.0-20221205180719-3fd0dac74452 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
+	golang.org/x/arch v0.1.0 // indirect
 	golang.org/x/mod v0.10.0 // indirect
 	golang.org/x/oauth2 v0.7.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
