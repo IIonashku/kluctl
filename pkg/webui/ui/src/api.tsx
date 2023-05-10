@@ -16,6 +16,7 @@ import "./staticbuild.d.ts"
 import { loadScript } from "./loadscript";
 
 const apiUrl = "/api"
+const staticPath = process.env.PUBLIC_URL
 
 export enum ObjectType {
     Rendered = "rendered",
@@ -99,15 +100,15 @@ class RealApi implements Api {
 
 class StaticApi implements Api {
     async getShortNames(): Promise<ShortName[]> {
-        await loadScript("./shortnames.js")
+        await loadScript(staticPath + "/shortnames.js")
         return staticShortNames
     }
     async listProjects(): Promise<ProjectSummary[]> {
-        await loadScript("./projects.js")
+        await loadScript(staticPath + "/projects.js")
         return staticProjects
     }
     async listResults(filterProject?: string, filterSubDir?: string): Promise<CommandResultSummary[]> {
-        await loadScript("./summaries.js")
+        await loadScript(staticPath + "/summaries.js")
         return staticSummaries.filter(s => {
             if (filterProject && filterProject != s.project.normalizedGitUrl) {
                 return false
@@ -119,7 +120,7 @@ class StaticApi implements Api {
         })
     }
     async getResult(resultId: string): Promise<CommandResult> {
-        await loadScript(`./result-${resultId}.js`)
+        await loadScript(staticPath + `/result-${resultId}.js`)
         return staticResults.get(resultId)
     }
     async getResultObject(resultId: string, ref: ObjectRef, objectType: string): Promise<any> {
