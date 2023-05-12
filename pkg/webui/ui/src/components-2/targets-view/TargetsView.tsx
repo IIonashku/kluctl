@@ -38,7 +38,7 @@ export const TargetsView = () => {
         setSelectedCommandResult(undefined)
         setSelectedTargetSummary(ts)
     }
-
+    console.log(projects, "projects")
     return <Box width={"max-content"}>
         <CommandResultDetailsDrawer rs={selectedCommandResult} onClose={() => setSelectedCommandResult(undefined)}/>
         <TargetDetailsDrawer ts={selectedTargetSummary} onClose={() => setSelectedTargetSummary(undefined)}/>
