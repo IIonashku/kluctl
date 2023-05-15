@@ -1,23 +1,21 @@
-import { FC } from "react"
-import Box from '@mui/material/Box';
+
+
 import { SvgIcon, Typography } from "@mui/material";
-import { styled } from '@mui/material/styles';
-import { CommandResultSummary, ProjectSummary, TargetSummary } from "../../models";
+import Box from '@mui/material/Box';
+import {  ProjectSummary } from "../../models";
 import Divider from '@mui/material/Divider';
 import { api } from "../../api";
 import { BlockTargets } from "./BlockTarget"
-import { useEffect, useState } from 'react';
 import { useLoaderData } from "react-router-dom";
 import { ReactComponent as Project } from './../../iconss/target/project.svg';
-// const WrappTarget = styled
-const LineToTarget: FC<{}> = () => {
-    
-  return (
-   <></>
-  )
-}
+import { WrapperLine, LineToTarget } from './lines/ToTargetsLines'
+import { History } from "./History"
+
+
 const widthCall = "434px"
 const widthBlock = "247px"
+
+const a = [1,2,3,4,5]
 export async function projectsLoader() {
     const projects = await api.listProjects()
     return projects
@@ -71,6 +69,8 @@ export const Target = () => {
                           <Box key={idx} sx={{display: "flex", p: "35px 0", alignItems: "center"}}>
                               <Box sx={{
                                    width: widthCall,
+                                   display:"flex",
+                                   alignItems: "center"
                                 }}>
                                 <Box sx={{
                                     display: "flex",
@@ -98,24 +98,54 @@ export const Target = () => {
                                             {project.subDir}
                                     </Typography>
                                 </Box>
-                                  <></>
+                                    <WrapperLine>
+                                         <LineToTarget countLines={targets.length}/>
+                                    </WrapperLine> 
                                 </Box>
-                                <LineToTarget />
+                              
                                 <Box sx={{
                                    width: widthCall,
                                    display: "flex",
                                    flexDirection: "column",
-                                   gridGap: "50px",
+                                   gridGap: "20px",
                                 }}>
                                     {
-                                        targets.map((targets)=>{
+                                        targets.map((data, idx)=>{
+                                            const two = targets.length % 2 != 0
+                                            
                                             return (
-                                                <BlockTargets targets={targets} iconName="target" />
+                                                <>
+                                                <BlockTargets 
+                                                    idx={idx}
+                                                    targets={data} 
+                                                    length={targets.length} 
+                                                    two={two}
+                                                    iconName="target" 
+                                                />
+                                                </>
                                             )
                                         })
                                     }
                                  
                                 </Box>
+                                <Box sx={{
+                                   width: "auto",
+                                   display: "flex",
+                                   flexDirection: "column",
+                                   gridGap: "20px",
+                                }}>
+                                    {targets.map((ts, i) => {
+                                        return <Box key={i} display={"flex"} height={"auto"} >
+                                            {ts.commandResults?.map((rs, i) => {
+                                                return <Box key={i} height={"100%"} paddingX={1}>
+                                                    <History />
+                                                    {/* <CommandResultItem ps={ps} ts={ts} rs={rs}
+                                                                    onSelectCommandResult={(rs) => doSetSelectedCommandResult(rs)}/> */}
+                                                </Box>
+                                          })}
+                            </Box>
+                        })}
+                    </Box>
                         </Box>
                         <Divider sx={{ background: "#39403E", height: '0.5px'}}/>
                         </>

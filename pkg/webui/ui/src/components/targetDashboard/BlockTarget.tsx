@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import { SvgIcon, Typography } from "@mui/material";
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ReactComponent as TargetSvg } from './../../iconss/target/target.svg';
 import { ReactComponent as Cpu } from './../../iconss/target/cpu.svg';
 import { ReactComponent as Finger } from './../../iconss/target/fingerScan.svg';
@@ -11,9 +11,48 @@ import { ProjectSummary, TargetSummary } from "../../models";
 import Tooltip from '@mui/material/Tooltip';
 import { Height } from '@mui/icons-material';
 
-export const BlockTargets: FC<{iconName:string, targets: TargetSummary}> = ({iconName, targets}) => {
+export const BlockTargets: FC<{
+    length: number, 
+    two: boolean,
+    iconName:string, 
+    idx: number,
+    targets: TargetSummary
+    }> = ({iconName, targets, length, two, idx}) => {
+        const [countLines, setCountLines] = useState<number>(0)
+        const [bottomLine, setBottomLine] = useState<number>(0)
+       
+       
+            useEffect(()=>{
+                if(!two) {
+                    setCountLines(length / 2)
+                }
+                else {
+                    setCountLines((length - 1) / 2)
+                }
+            },[two, length])
+            useEffect(()=>{
+                setBottomLine(length - countLines)
+            }, [countLines, length])
+            const heightFunc = () => {
+               if(bottomLine  === idx) {
+                if(two) {
+                 return 130
+                }
+                return 55
+               } 
+               else if (countLines -1  === idx){
+                if(two) {
+                    return 130
+                   }
+                   return 55
+               } else {
+                return 160
+               }
+            } 
+            console.log( countLines, two)
     return (
         <Box  sx={{
+            position: "relative",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -24,6 +63,33 @@ export const BlockTargets: FC<{iconName:string, targets: TargetSummary}> = ({ico
             background: "#DFEBE9",
             border: "1px solid #59A588",
             boxShadow: "4px 4px 10px #1E617A",
+            '&::before': {
+               content: '""',
+               display: two && idx === countLines ? "none" : "block",
+               position: "absolute",
+               right: "calc(100% + 9px)",
+               width: "85px",
+               height: heightFunc() + "px",
+               borderTop: bottomLine > idx ? "2px solid #000" : "none",
+               borderBottom: bottomLine > idx ? "none" : "2px solid #000",
+               borderLeft: "2px solid #000",
+               borderRadius: bottomLine > idx ? "20px 0 0  0" : "0 0 0 20px",
+               top: bottomLine > idx ? "calc(126px / 2)" : "auto",
+               bottom: bottomLine > idx ? "auto" : "calc(126px / 2)"
+            },
+            '&::after': {
+                content: '""',
+                display: two && idx === countLines ? "none" : "block",
+                position: "absolute",
+                top: bottomLine > idx ? "calc(126px / 2 - 6px)" : "auto",
+                bottom: bottomLine > idx ? "auto" : "calc(126px / 2 - 6px)",
+                left: "calc(-12px + -9px)",
+                width: "12px",
+                height: "12px",
+                border: "2px solid #000",
+                borderRadius: "100px",
+                background: "#fff"
+             }
         }}>
             <Box sx={{
                 display: "flex",
@@ -103,10 +169,9 @@ export const BlockTargets: FC<{iconName:string, targets: TargetSummary}> = ({ico
                        component={More} 
                        inheritViewBox />
                      </Tooltip>
-                    </Box>
+                    </Box> 
                        
             </Box>
-                {/* {<no-name></no-name>} */}
         </Box>
     )
 }
