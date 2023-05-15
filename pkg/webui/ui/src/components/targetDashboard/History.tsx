@@ -1,111 +1,148 @@
-import Box from '@mui/material/Box';
-import { SvgIcon, Typography } from "@mui/material";
-import { FC, useEffect, useState } from 'react';
-import { ReactComponent as TargetSvg } from './../../iconss/target/target.svg';
-import { ReactComponent as Cpu } from './../../iconss/target/cpu.svg';
-import { ReactComponent as Finger } from './../../iconss/target/fingerScan.svg';
-import { ReactComponent as Heart } from './../../iconss/target/heart.svg';
-import { ReactComponent as More } from './../../iconss/target/more.svg';
-import { ReactComponent as Question } from './../../iconss/target/question.svg';
-import { ProjectSummary, TargetSummary } from "../../models";
-import Tooltip from '@mui/material/Tooltip';
-import { Height } from '@mui/icons-material';
+import { ReactComponent as DataSvg } from "./../../iconss/history/data.svg";
+import { ReactComponent as CloudSvg } from "./../../iconss/history/cloud.svg";
+import { ReactComponent as DeleteSvg } from "./../../iconss/history/delete.svg";
+import { ReactComponent as DiffSvg } from "./../../iconss/history/diff.svg";
+import { ReactComponent as TrashSvg } from "./../../iconss/history/trash.svg";
+import { ReactComponent as DeploySvg } from "./../../iconss/history/deploy.svg";
+///
+import {
+  CommandResultSummary,
+  ProjectSummary,
+  TargetSummary,
+} from "../../models";
+import { FC, useEffect, useMemo, useState } from "react";
+import * as yaml from "js-yaml";
+import { CodeViewer } from "./CodeViewer";
+import { Box, IconButton, Tooltip, Typography, SvgIcon } from "@mui/material";
+// import { CommandResultStatusLine } from "../result-view/CommandResultStatusLine";
+import { useNavigate } from "react-router";
+import { formatDurationShort } from "../../utils/duration";
+import { LineResult } from "./LineResult";
 
-export const History = () => {
-    return   <Box  sx={{
+export const History: FC<{
+  ts: TargetSummary;
+  rs: CommandResultSummary;
+  // onSelectCommandResult: (rs?: CommandResultSummary) => void
+}> = ({ ts, rs }) => {
+  const calcAgo = () => {
+    const t1 = new Date(rs.commandInfo.startTime);
+    const t2 = new Date();
+    const d = t2.getTime() - t1.getTime();
+    return formatDurationShort(d);
+  };
+
+  const navigate = useNavigate();
+  const [ago, setAgo] = useState(calcAgo());
+
+  let Icon = DiffSvg;
+  switch (rs.commandInfo?.command) {
+    case "delete":
+      Icon = DeleteSvg;
+      break;
+    case "deploy":
+      Icon = DeploySvg;
+      break;
+    case "diff":
+      Icon = DiffSvg;
+      break;
+    case "poke-images":
+      Icon = CloudSvg;
+      break;
+    case "prune":
+      Icon = TrashSvg;
+      break;
+  }
+
+  const cmdInfoYaml = useMemo(() => {
+    return yaml.dump(rs.commandInfo);
+  }, [rs]);
+  let iconTooltip = <CodeViewer code={cmdInfoYaml} language={"yaml"} />;
+
+  useEffect(() => {
+    const interval = setInterval(() => setAgo(calcAgo()), 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <Box
+      sx={{
         position: "relative",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        p: "12px 10px",
+        p: "12px 10px 0 10px",
         width: "247px",
         height: "126px",
         borderRadius: "12px",
         background: "#DFEBE9",
         border: "1px solid #59A588",
         boxShadow: "4px 4px 10px #1E617A",
-       
-    }}>
-        <Box sx={{
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "flex-start",
+        }}
+      >
+        <Tooltip title={iconTooltip}>
+          <Icon fontSize={"large"} />
+        </Tooltip>
+        <Box
+          sx={{
+            ml: "16px",
             display: "flex",
-            width: "100%",
-            justifyContent: "flex-start"
-        }}>
-             <SvgIcon sx={{
-                    width: "45px",
-                    height: "45px",
-                    mr: "15px"
-            }} component={TargetSvg} inheritViewBox />
-            <Box >
-                {/* <Typography sx={{
-                            fontWeight: 800,
-                            fontSize: "20px",
-                            lineHeight: "27px",
-                            color: "#222222",
-                            minWidth: "auto"
-                            }} variant="body1">
-                           {targets.target.targetName || "no-name"}
-                </Typography>
-                <Typography sx={{
-                            fontWeight: 500,
-                            fontSize: "14px",
-                            lineHeight: "19px",
-                            color: "#222222",
-                            minWidth: "auto"
-                            }} variant="body1">
-                           feature-forms-12345
-                </Typography> */}
-            </Box>
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+        >
+          <Typography
+            sx={{
+              fontWeight: 800,
+              fontSize: "20px",
+              lineHeight: "27px",
+              color: "#222222",
+              minWidth: "auto",
+              mb: "4px",
+            }}
+            variant="body1"
+          >
+            {rs.commandInfo?.command}
+          </Typography>
+          <Tooltip title={rs.commandInfo.startTime}>
+            <Typography fontSize={"10px"} color={"gray"} align={"center"}>
+              {ago}
+            </Typography>
+          </Tooltip>
         </Box>
-        <Box sx={{
-                display: "flex",
-                justifyContent: "space-between"
-            }}>
-                <Box sx={{
-                    display: "flex",
-                }}>
-                {/* <Tooltip title={"Cluster ID: " + targets.target.clusterId}>
-                    <SvgIcon sx={{
-                        width: "24px",
-                        height: "24px",
-                        mr: "4px"
-                    }}
-                    component={Cpu}
-                    inheritViewBox />
-                </Tooltip>
-                <Tooltip title={"Discriminator: " + targets.target.discriminator}>
-                     <SvgIcon sx={{
-                        width: "24px",
-                        height: "24px",
-                        mr: "4px"
-                   }} 
-                   component={Finger} 
-                   inheritViewBox />
-                 </Tooltip>
-                </Box>
-                <Box sx={{
-                    
-                }}>
-                    <Tooltip title={"Cluster ID: " + targets.target.clusterId}>
-                    <SvgIcon sx={{
-                        width: "24px",
-                        height: "24px",
-                        mr: "4px"
-                    }}
-                    component={Heart}
-                    inheritViewBox />
-                </Tooltip>
-                <Tooltip title={"Discriminator: " + targets.target.discriminator}>
-                     <SvgIcon sx={{
-                        width: "24px",
-                        height: "24px",
-                        mr: "4px"
-                   }} 
-                   component={More} 
-                   inheritViewBox />
-                 </Tooltip> */}
-                </Box> 
-                   
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+          }}
+        >
+          <LineResult rs={rs} />
         </Box>
+        <Box sx={{}}>
+          <IconButton
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/results/${rs.id}`);
+            }}
+          >
+            <Tooltip title={"Open Result Tree"}>
+              <DataSvg />
+            </Tooltip>
+          </IconButton>
+        </Box>
+      </Box>
     </Box>
-}
+  );
+};
