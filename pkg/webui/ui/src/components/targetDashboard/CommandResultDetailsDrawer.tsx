@@ -42,13 +42,12 @@ export const CommandResultDetailsDrawer = (props: {
 
   const Content = () => {
     const node = usePromise(promise);
-    console.log("node", node);
     return <SidePanel provider={node} />;
   };
 
   return (
     <RightDriver open={props.rs !== undefined} onClose={props.onClose}>
-      <Box width={"800px"} height={"100%"}>
+      <Box height={"100%"}>
         <Suspense fallback={<Loading />}>
           <Content />
         </Suspense>

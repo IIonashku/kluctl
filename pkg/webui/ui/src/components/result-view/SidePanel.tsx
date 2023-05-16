@@ -66,7 +66,10 @@ export const SidePanel = (props: SidePanelProps) => {
       <Typography
         variant="h4"
         sx={{
-          color: "#fff",
+          fontWeight: 700,
+          fontSize: "24px",
+          lineHeight: "33px",
+          color: "#DFEBE9",
         }}
       >
         {props.provider.buildSidePanelTitle()}
@@ -101,7 +104,17 @@ export const SidePanel = (props: SidePanelProps) => {
         </Box>
         {tabs.map((tab, index) => {
           return (
-            <TabPanel value={tab.label} key={index} sx={{ overflowY: "auto" }}>
+            <TabPanel
+              value={tab.label}
+              key={index}
+              sx={{
+                padding: 0,
+                mt: "30px",
+                overflowY: "auto",
+                background: "#DFEBE9",
+                borderRadius: "5px",
+              }}
+            >
               {tab.content}
             </TabPanel>
           );

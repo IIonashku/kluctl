@@ -1,10 +1,10 @@
 import { Box, SvgIcon, Tooltip, Typography } from "@mui/material";
-import { ReactComponent as AddItemSvg } from "./../../iconss/history/additem.svg";
-import { ReactComponent as DiffSvg } from "./../../iconss/history/diff.svg";
-import { ReactComponent as FolderSvg } from "./../../iconss/history/folder.svg";
-import { ReactComponent as WarningSvg } from "./../../iconss/history/warning.svg";
-import { ReactComponent as ForbiddenSvg } from "./../../iconss/history/forbidden.svg";
-import { ReactComponent as TrashSvg } from "./../../iconss/history/trash.svg";
+import { ReactComponent as AddItemSvg } from "./../../icons/history/additem.svg";
+import { ReactComponent as DiffSvg } from "./../../icons/history/diff.svg";
+import { ReactComponent as FolderSvg } from "./../../icons/history/folder.svg";
+import { ReactComponent as WarningSvg } from "./../../icons/history/warning.svg";
+import { ReactComponent as ForbiddenSvg } from "./../../icons/history/forbidden.svg";
+import { ReactComponent as TrashSvg } from "./../../icons/history/trash.svg";
 import { FC } from "react";
 import { CommandResultSummary } from "../../models";
 

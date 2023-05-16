@@ -8,11 +8,11 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { ReactComponent as Logo } from "./../../iconss/logo.svg";
-import { ReactComponent as LogoText } from "./../../iconss/LogoText.svg";
-import { ReactComponent as Targets } from "./../../iconss/menu/targets.svg";
-import { ReactComponent as Settings } from "./../../iconss/menu/settings.svg";
-import { ReactComponent as Account } from "./../../iconss/menu/account.svg";
+import { ReactComponent as Logo } from "./../../icons/logo.svg";
+import { ReactComponent as LogoText } from "./../../icons/LogoText.svg";
+import { ReactComponent as Targets } from "./../../icons/menu/targets.svg";
+import { ReactComponent as Settings } from "./../../icons/menu/settings.svg";
+import { ReactComponent as Account } from "./../../icons/menu/account.svg";
 import { Box } from "@mui/material";
 const drawerWidth = 224;
 const openedMixin = (theme: Theme): CSSObject => ({

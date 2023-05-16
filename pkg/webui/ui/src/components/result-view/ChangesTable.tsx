@@ -16,33 +16,54 @@ import { ObjectRef } from "../../models";
 const RefList = (props: { title: string; refs: ObjectRef[] }) => {
   return (
     <Box>
-      <Typography align={"center"} variant={"h5"}>
+      <Typography
+        align={"center"}
+        variant={"h5"}
+        sx={{
+          mt: "20px",
+          mb: "20px",
+        }}
+      >
         {props.title}
       </Typography>
-      <TableContainer component={Paper}>
+      <TableContainer
+        component={Paper}
+        sx={{
+          background: "none",
+        }}
+      >
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="left">
-                <Typography>Kind</Typography>
-              </TableCell>
-              <TableCell align="left">
-                <Typography>Namespace</Typography>
-              </TableCell>
-              <TableCell align="left">
-                <Typography>Name</Typography>
-              </TableCell>
+              {["Kind", "Namespace", "Name"].map((el, idx) => {
+                return (
+                  <TableCell
+                    key={idx}
+                    align="center"
+                    sx={{
+                      fontWeight: 600,
+                      fontSize: "18px",
+                      lineHeight: "25px",
+                      color: "#39403E",
+                    }}
+                  >
+                    <Typography>{el}</Typography>
+                  </TableCell>
+                );
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
             {props.refs.map((ref, i) => {
               return (
                 <TableRow key={i}>
-                  <TableCell>{buildRefKindElement(ref)}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{ width: "50px" }} align="center">
+                    {buildRefKindElement(ref)}
+                  </TableCell>
+                  <TableCell sx={{ width: "50px" }} align="center">
                     <Typography>{ref.namespace}</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ width: "100px" }} align="center">
                     <Typography>{ref.name}</Typography>
                   </TableCell>
                 </TableRow>
@@ -62,34 +83,61 @@ export function ChangesTable(props: { diffStatus: DiffStatus }) {
   if (props.diffStatus.changedObjects.length) {
     changedObjects = (
       <Box>
-        <Typography align={"center"} variant={"h5"}>
+        <Typography
+          align={"center"}
+          variant={"h5"}
+          sx={{
+            mt: "20px",
+            mb: "20px",
+          }}
+        >
           Changed Objects
         </Typography>
         {props.diffStatus.changedObjects.map((co, i) => (
-          <TableContainer key={i} component={Paper}>
+          <TableContainer
+            key={i}
+            component={Paper}
+            sx={{
+              background: "none",
+            }}
+          >
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell align="left" colSpan={2}>
+                  <TableCell align="center" colSpan={2}>
                     <Typography variant="h6">
                       {buildRefString(co.ref)}
                     </Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Path</TableCell>
-                  <TableCell>Changes</TableCell>
+                  {["Path", "Changes"].map((el, idx) => {
+                    return (
+                      <TableCell
+                        key={idx}
+                        align="center"
+                        sx={{
+                          fontWeight: 600,
+                          fontSize: "18px",
+                          lineHeight: "25px",
+                          color: "#39403E",
+                        }}
+                      >
+                        {el}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {co.changes?.map((c, i) => (
                   <TableRow key={i}>
-                    <TableCell>
+                    <TableCell align="center" sx={{ width: "50px" }}>
                       <Box minWidth={"100px"} sx={{ overflowWrap: "anywhere" }}>
                         <Typography>{c.jsonPath}</Typography>
                       </Box>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="center" sx={{ width: "100px" }}>
                       <CodeViewer
                         code={c.unifiedDiff || ""}
                         language={"diff"}
@@ -107,7 +155,32 @@ export function ChangesTable(props: { diffStatus: DiffStatus }) {
   }
 
   return (
-    <Box width={"100%"} display={"flex"} flexDirection={"column"}>
+    <Box
+      width={"100%"}
+      display={"flex"}
+      flexDirection={"column"}
+      sx={{
+        "& .MuiTableCell-root": {
+          position: "relative",
+          borderBottom: "0.5px solid #39403E",
+          "::after": {
+            content: '""',
+            position: "absolute",
+            width: "0.5px",
+            height: "50%",
+            background: "#39403E",
+            right: 0,
+            top: "50%",
+            transform: "translate(0, -50%)",
+          },
+          ":last-child": {
+            "::after": {
+              display: "none",
+            },
+          },
+        },
+      }}
+    >
       {props.diffStatus.newObjects.length ? (
         <RefList title={"New Objects"} refs={props.diffStatus.newObjects} />
       ) : (

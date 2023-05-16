@@ -13,9 +13,36 @@ import { buildRefKindElement } from "../api";
 export function ErrorsTable(props: { errors: DeploymentError[] }) {
   return (
     <>
-      <Box height={"100%"}>
-        <TableContainer component={Paper}>
-          <Table>
+      <Box>
+        <TableContainer
+          component={Paper}
+          sx={{
+            background: "none",
+          }}
+        >
+          <Table
+            sx={{
+              "& .MuiTableCell-root": {
+                position: "relative",
+                borderBottom: "0.5px solid #39403E",
+                "::after": {
+                  content: '""',
+                  position: "absolute",
+                  width: "0.5px",
+                  height: "50%",
+                  background: "#39403E",
+                  right: 0,
+                  top: "50%",
+                  transform: "translate(0, -50%)",
+                },
+                ":last-child": {
+                  "::after": {
+                    display: "none",
+                  },
+                },
+              },
+            }}
+          >
             <TableHead>
               <TableRow>
                 <TableCell>Ref</TableCell>
@@ -25,7 +52,7 @@ export function ErrorsTable(props: { errors: DeploymentError[] }) {
             <TableBody>
               {props.errors?.map((e, i) => (
                 <TableRow key={i}>
-                  <TableCell sx={{ minWidth: "150px" }}>
+                  <TableCell sx={{ maxWidth: "150px" }}>
                     <List>
                       {buildRefKindElement(
                         e.ref,
@@ -49,7 +76,7 @@ export function ErrorsTable(props: { errors: DeploymentError[] }) {
                       )}
                     </List>
                   </TableCell>
-                  <TableCell>{e.message}</TableCell>
+                  <TableCell sx={{ maxWidth: "300px" }}>{e.message}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

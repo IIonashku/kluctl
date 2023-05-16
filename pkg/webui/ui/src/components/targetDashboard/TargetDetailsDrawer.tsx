@@ -116,7 +116,7 @@ export const TargetDetailsDrawer = (props: {
 }) => {
   return (
     <RightDriver open={props.ts !== undefined} onClose={props.onClose}>
-      <Box width={"800px"} height={"100%"}>
+      <Box height={"100%"}>
         <SidePanel provider={new MyProvider(props.ts)} />
       </Box>
     </RightDriver>

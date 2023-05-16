@@ -1,9 +1,9 @@
-import { ReactComponent as DataSvg } from "./../../iconss/history/data.svg";
-import { ReactComponent as CloudSvg } from "./../../iconss/history/cloud.svg";
-import { ReactComponent as DeleteSvg } from "./../../iconss/history/delete.svg";
-import { ReactComponent as DiffSvg } from "./../../iconss/history/diff.svg";
-import { ReactComponent as TrashSvg } from "./../../iconss/history/trash.svg";
-import { ReactComponent as DeploySvg } from "./../../iconss/history/deploy.svg";
+import { ReactComponent as DataSvg } from "./../../icons/history/data.svg";
+import { ReactComponent as CloudSvg } from "./../../icons/history/cloud.svg";
+import { ReactComponent as DeleteSvg } from "./../../icons/history/delete.svg";
+import { ReactComponent as DiffSvg } from "./../../icons/history/diff.svg";
+import { ReactComponent as TrashSvg } from "./../../icons/history/trash.svg";
+import { ReactComponent as DeploySvg } from "./../../icons/history/deploy.svg";
 ///
 import {
   CommandResultSummary,

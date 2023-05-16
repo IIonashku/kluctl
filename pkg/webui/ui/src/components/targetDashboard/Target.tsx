@@ -10,7 +10,7 @@ import { useAppOutletContext } from "../App";
 import { api } from "../../api";
 import { BlockTargets } from "./BlockTarget";
 import { useLoaderData } from "react-router-dom";
-import { ReactComponent as Project } from "./../../iconss/target/project.svg";
+import { ReactComponent as Project } from "./../../icons/target/project.svg";
 import { WrapperLine, LineToTarget, LineCenter } from "./lines/ToTargetsLines";
 import { History } from "./History";
 import { RightDriver } from "../layout/RightDriver";

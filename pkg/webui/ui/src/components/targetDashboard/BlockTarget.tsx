@@ -1,12 +1,12 @@
 import Box from "@mui/material/Box";
 import { SvgIcon, Typography } from "@mui/material";
 import { FC, useEffect, useState } from "react";
-import { ReactComponent as TargetSvg } from "./../../iconss/target/target.svg";
-import { ReactComponent as Cpu } from "./../../iconss/target/cpu.svg";
-import { ReactComponent as Finger } from "./../../iconss/target/fingerScan.svg";
-import { ReactComponent as Heart } from "./../../iconss/target/heart.svg";
-import { ReactComponent as More } from "./../../iconss/target/more.svg";
-import { ReactComponent as Question } from "./../../iconss/target/question.svg";
+import { ReactComponent as TargetSvg } from "./../../icons/target/target.svg";
+import { ReactComponent as Cpu } from "./../../icons/target/cpu.svg";
+import { ReactComponent as Finger } from "./../../icons/target/fingerScan.svg";
+import { ReactComponent as Heart } from "./../../icons/target/heart.svg";
+import { ReactComponent as More } from "./../../icons/target/more.svg";
+import { ReactComponent as Question } from "./../../icons/target/question.svg";
 import { ProjectSummary, TargetSummary } from "../../models";
 import Tooltip from "@mui/material/Tooltip";
 import { Height } from "@mui/icons-material";
