@@ -38,7 +38,7 @@ const App = () => {
   return (
     <BoxWrapper height={"100%"}>
       <Layout>
-        <Outlet />
+        <Outlet context={context} />
       </Layout>
     </BoxWrapper>
   );

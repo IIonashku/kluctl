@@ -1,13 +1,23 @@
 import { SvgIcon, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import { ProjectSummary } from "../../models";
+import {
+  CommandResultSummary,
+  ProjectSummary,
+  TargetSummary,
+} from "../../models";
 import Divider from "@mui/material/Divider";
+import { useAppOutletContext } from "../App";
 import { api } from "../../api";
 import { BlockTargets } from "./BlockTarget";
 import { useLoaderData } from "react-router-dom";
 import { ReactComponent as Project } from "./../../iconss/target/project.svg";
 import { WrapperLine, LineToTarget, LineCenter } from "./lines/ToTargetsLines";
 import { History } from "./History";
+import { RightDriver } from "../layout/RightDriver";
+import { TabTable } from "./driverTable/TabTable";
+import { CommandResultDetailsDrawer } from "./CommandResultDetailsDrawer";
+import { TargetDetailsDrawer } from "./TargetDetailsDrawer";
+import { useEffect, useState } from "react";
 
 const widthCall = "434px";
 const widthBlock = "247px";
@@ -18,8 +28,31 @@ export async function projectsLoader() {
   return projects;
 }
 export const Target = () => {
+  // const [typeDriver, setTypeDriver] = useState<null | "target" | "history">(
+  //   null
+  // );
+  // const [driverOpen, setOpenDriver] = useState<boolean>(false);
+  const context = useAppOutletContext();
+  const [selectedCommandResult, setSelectedCommandResult] =
+    useState<CommandResultSummary>();
+  const [selectedTargetSummary, setSelectedTargetSummary] =
+    useState<TargetSummary>();
+
   const projects = useLoaderData() as ProjectSummary[];
-  console.log("projects 2", projects);
+
+  useEffect(() => {
+    context.setFilters(undefined);
+  });
+
+  const doSetSelectedCommandResult = (rs?: CommandResultSummary) => {
+    setSelectedCommandResult(rs);
+    setSelectedTargetSummary(undefined);
+  };
+  const doSetSelectedTargetSummary = (ts?: TargetSummary) => {
+    setSelectedCommandResult(undefined);
+    setSelectedTargetSummary(ts);
+  };
+  console.log(projects, "projects");
   return (
     <Box
       sx={{
@@ -28,6 +61,14 @@ export const Target = () => {
         margin: 0,
       }}
     >
+      <CommandResultDetailsDrawer
+        rs={selectedCommandResult}
+        onClose={() => setSelectedCommandResult(undefined)}
+      />
+      <TargetDetailsDrawer
+        ts={selectedTargetSummary}
+        onClose={() => setSelectedTargetSummary(undefined)}
+      />
       <Divider sx={{ background: "#39403E", height: "0.5px" }} />
       <Box
         sx={{
@@ -73,7 +114,6 @@ export const Target = () => {
         })}
       </Box>
       <Divider sx={{ background: "#39403E", height: "0.5px" }} />
-      {/* line project */}
       {projects.map(({ project, targets }, idx) => {
         return (
           <>
@@ -147,6 +187,9 @@ export const Target = () => {
                         length={targets.length}
                         two={two}
                         iconName="target"
+                        onSelectTarget={(data) =>
+                          doSetSelectedTargetSummary(data)
+                        }
                       />
                     </>
                   );
@@ -176,11 +219,13 @@ export const Target = () => {
                           <>
                             <LineCenter width={160} circle />
                             <Box key={i} height={"100%"}>
-                              <History ts={target} rs={result} />
-                              {/* // onSelectCommandResult={(rs) => doSetSelectedCommandResult(rs)} */}
-
-                              {/* <CommandResultItem ps={ps} ts={ts} rs={rs}
-                                                                    onSelectCommandResult={(rs) => doSetSelectedCommandResult(rs)}/> */}
+                              <History
+                                ts={target}
+                                rs={result}
+                                onSelectCommandResult={(result) =>
+                                  doSetSelectedCommandResult(result)
+                                }
+                              />
                             </Box>
                           </>
                         );

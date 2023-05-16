@@ -1,2 +1,2 @@
-const isStaticBuild = false;
+const isStaticBuild = true;
 const staticResults = new Map()

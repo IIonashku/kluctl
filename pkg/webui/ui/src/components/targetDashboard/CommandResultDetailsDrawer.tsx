@@ -6,6 +6,7 @@ import { NodeData } from "../result-view/nodes/NodeData";
 import { SidePanel } from "../result-view/SidePanel";
 import { Box, Drawer } from "@mui/material";
 import { Loading } from "../Loading";
+import { RightDriver } from "./../layout/RightDriver";
 
 async function doGetRootNode(rs: CommandResultSummary) {
   const shortNames = api.getShortNames();
@@ -46,17 +47,12 @@ export const CommandResultDetailsDrawer = (props: {
   };
 
   return (
-    <Drawer
-      sx={{ zIndex: 1300 }}
-      anchor={"right"}
-      open={props.rs !== undefined}
-      onClose={() => props.onClose()}
-    >
+    <RightDriver open={props.rs !== undefined} onClose={props.onClose}>
       <Box width={"800px"} height={"100%"}>
         <Suspense fallback={<Loading />}>
           <Content />
         </Suspense>
       </Box>
-    </Drawer>
+    </RightDriver>
   );
 };

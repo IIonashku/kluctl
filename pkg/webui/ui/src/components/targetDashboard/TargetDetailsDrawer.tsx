@@ -10,6 +10,7 @@ import { PropertiesTable } from "../PropertiesTable";
 import { DiffStatus } from "../result-view/nodes/NodeData";
 import { ChangesTable } from "../result-view/ChangesTable";
 import { ErrorsTable } from "../ErrorsTable";
+import { RightDriver } from "../layout/RightDriver";
 
 class MyProvider implements SidePanelProvider {
   private ts?: TargetSummary;
@@ -113,17 +114,11 @@ export const TargetDetailsDrawer = (props: {
   ts?: TargetSummary;
   onClose: () => void;
 }) => {
-  console.log(props.ts, "654321");
   return (
-    <Drawer
-      sx={{ zIndex: 1300 }}
-      anchor={"right"}
-      open={props.ts !== undefined}
-      onClose={() => props.onClose()}
-    >
+    <RightDriver open={props.ts !== undefined} onClose={props.onClose}>
       <Box width={"800px"} height={"100%"}>
         <SidePanel provider={new MyProvider(props.ts)} />
       </Box>
-    </Drawer>
+    </RightDriver>
   );
 };

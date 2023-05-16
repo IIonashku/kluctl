@@ -1,38 +1,80 @@
 import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Drawer from "@mui/material/Drawer";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
-const drawerWidth = 240;
+// const drawerWidth = 240;
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-start",
-}));
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
 
-export default function PersistentDrawerRight() {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
 
-  const handleDrawerClose = () => {
-    setOpen(false);
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
+}
+
+export const RightDriver: React.FC<{
+  children: React.ReactElement;
+  open: any;
+  onClose: any;
+}> = ({ children, open, onClose }) => {
+  const theme = useTheme();
+
+  const [value, setValue] = React.useState(0);
 
   return (
     <Drawer
       sx={{
-        width: drawerWidth,
+        zIndex: 1300,
+        width: "auto",
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: drawerWidth,
+          background: "#222222",
+          width: "auto",
         },
       }}
-      variant="persistent"
+      // variant="persistent"
       anchor="right"
       open={open}
-    ></Drawer>
+      onClose={() => onClose()}
+    >
+      <div
+        onClick={() => {
+          // setOpenDriver(false);
+          // setTypeDriver(null);
+        }}
+      >
+        +
+      </div>
+      {children}
+    </Drawer>
   );
-}
+};

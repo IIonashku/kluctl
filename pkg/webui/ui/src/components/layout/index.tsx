@@ -4,7 +4,6 @@ import { LeftDrive } from "./LeftDriver";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Header } from "./header";
 import { Typography } from "@mui/material";
-import PersistentDrawerRight from "./RightDriver";
 
 export const drawerWidth = 224;
 
@@ -40,7 +39,6 @@ export const Layout: FC<{ children: ReactElement }> = ({ children }) => {
         </Typography>
         {children}
       </Box>
-      {/* <PersistentDrawerRight /> */}
     </Box>
   );
 };

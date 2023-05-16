@@ -22,8 +22,8 @@ import { LineResult } from "./LineResult";
 export const History: FC<{
   ts: TargetSummary;
   rs: CommandResultSummary;
-  // onSelectCommandResult: (rs?: CommandResultSummary) => void
-}> = ({ ts, rs }) => {
+  onSelectCommandResult: (rs?: CommandResultSummary) => void;
+}> = ({ ts, rs, onSelectCommandResult }) => {
   const calcAgo = () => {
     const t1 = new Date(rs.commandInfo.startTime);
     const t2 = new Date();
@@ -78,6 +78,7 @@ export const History: FC<{
         border: "1px solid #59A588",
         boxShadow: "4px 4px 10px #1E617A",
       }}
+      onClick={() => onSelectCommandResult(rs)}
     >
       <Box
         sx={{
