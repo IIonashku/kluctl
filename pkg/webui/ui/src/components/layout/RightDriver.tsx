@@ -40,7 +40,16 @@ function a11yProps(index: number) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-
+const Exit = styled("div")`
+  cursor: pointer;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 0;
+  font-size: 35px;
+  color: #fff;
+  transform: rotate(45deg);
+`;
 export const RightDriver: React.FC<{
   children: React.ReactElement;
   open: any;
@@ -66,14 +75,7 @@ export const RightDriver: React.FC<{
       open={open}
       onClose={() => onClose()}
     >
-      <div
-        onClick={() => {
-          // setOpenDriver(false);
-          // setTypeDriver(null);
-        }}
-      >
-        +
-      </div>
+      <Exit onClick={() => onClose()}>+</Exit>
       {children}
     </Drawer>
   );
