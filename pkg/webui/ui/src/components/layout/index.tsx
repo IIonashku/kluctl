@@ -4,10 +4,14 @@ import { LeftDrive } from "./LeftDriver";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Header } from "./header";
 import { Typography } from "@mui/material";
+import { AppOutletContext } from "../App";
 
 export const drawerWidth = 224;
 
-export const Layout: FC<{ children: ReactElement }> = ({ children }) => {
+export const Layout: FC<{
+  children: ReactElement;
+  context: AppOutletContext;
+}> = ({ children, context }) => {
   const [open, setOpen] = useState<boolean>(false);
   const handleDrawerOpenClosed = () => {
     setOpen((prev) => !prev);
@@ -37,6 +41,7 @@ export const Layout: FC<{ children: ReactElement }> = ({ children }) => {
         >
           Dashboard
         </Typography>
+        {context.filters}
         {children}
       </Box>
     </Box>

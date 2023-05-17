@@ -37,7 +37,7 @@ const App = () => {
   console.log("filters", filters);
   return (
     <BoxWrapper height={"100%"}>
-      <Layout>
+      <Layout context={context}>
         <Outlet context={context} />
       </Layout>
     </BoxWrapper>
